@@ -5,4 +5,6 @@ const router = Router();
 
 router.post("/upload/avatar/:userId", procesarArchivo);
 
+// router.get("/")
+
 export default router;

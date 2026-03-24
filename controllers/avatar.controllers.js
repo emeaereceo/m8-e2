@@ -13,14 +13,21 @@ export const procesarArchivo = (req, res) => {
 
   const extension = fileName.split(".").pop().toLowerCase();
 
+  if (avatar.truncated) {
+    return res
+      .status(400)
+      .json({ erro: "El archivo excede el tamaño permitido" });
+  }
+
   if (!allowedExtensions.includes(extension)) {
     return res.status(400).json({
       error: "Extension de archivo no permitida",
     });
   }
 
+  const uniqueName = `${userId}-${Date.now()}.${extension}`;
   // ruta de destino
-  const uploadPath = `uploads/avatars/${userId}.${extension}`;
+  const uploadPath = `uploads/avatars/${uniqueName}`;
 
   avatar.mv(uploadPath, (err) => {
     if (err) {

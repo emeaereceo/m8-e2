@@ -4,11 +4,11 @@ import router from "./routes/avatar.routes.js";
 
 const app = express();
 
-// Se configura fileupload para evitar problemas de memoria
 app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
+    limits: { fileSize: 2 * 1024 * 1024 },
   }),
 );
 app.use(router);
